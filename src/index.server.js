@@ -13,6 +13,7 @@ const categoryRoutes = require('./routes/category'); //categoryroutes
 const productRoutes = require('./routes/product');
 const cartRoutes = require('./routes/cart');
 const initialDataRoutes = require('./routes/admin/initialData');
+const pageRoutes = require('./routes/admin/page');
 
 
 env.config();
@@ -44,6 +45,7 @@ mongoose
   app.use('/api',productRoutes);
   app.use('/api',cartRoutes);
   app.use('/api',initialDataRoutes);
+  app.use('/api',pageRoutes);
 
 
 app.listen(PORT, () => {
