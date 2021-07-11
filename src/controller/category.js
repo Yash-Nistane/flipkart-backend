@@ -5,6 +5,8 @@ const shortid = require('shortid');
 
 function createCategories(categories, parentId = null) {
 
+  
+
   const categoryList = [];
   let category;
 
