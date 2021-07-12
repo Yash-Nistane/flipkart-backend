@@ -3,6 +3,7 @@ const shortid = require("shortid");
 const slugify = require("slugify");
 const Category = require("../models/category");
 
+
 exports.createProduct = (req, res) => {
   //res.status(200).json( { file: req.files, body: req.body } );
 
@@ -31,7 +32,7 @@ exports.createProduct = (req, res) => {
     if (product) {
       res.status(201).json({ product });
     }
-  });
+  }); 
 };
 
 // exports.getProductsBySlug = (req,res) =>{
@@ -133,6 +134,37 @@ exports.getProductsBySlug = (req, res) => {
         });
       }
     });
+};
+
+
+
+exports.getSearchByCatSlug = (req, res) => {
+  
+const {name} = req.body;
+const $regex = name;
+
+   Category.findOne({ slug: { $regex , $options: 'i' } })
+   .select("_id type")
+   .exec((error, category) => {
+     if (error) {
+       return res.status(400).json({ error });
+     }
+
+     if (category) {
+       Product.find({ category: category._id }).exec((error, products) => {
+         if (error) {
+           return res.status(400).json({ error });
+         }
+
+         if (category.type){
+           res.status(200).json({ products });
+         }
+
+       });
+     }
+   });
+  
+
 };
 
 exports.getProductDetailsById = (req, res) => {
