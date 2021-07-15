@@ -140,7 +140,7 @@ exports.getSearchByCatSlug = (req, res) => {
   const { name } = req.body;
   const $regex = name;
 
-  console.log(name);
+  //console.log(name);
 
   Category.findOne({ slug: { $regex, $options: "i" } })
     .select("_id slug type ")
@@ -171,7 +171,7 @@ exports.getProductsByProductName = (req, res) => {
   const { name } = req.body;
   const $regex = name;
 
-  console.log(name);
+  //console.log(name);
 
   Product.findOne({ name: { $regex, $options: "i" } })
     .populate({ path: "category", select: "_id name slug" })
@@ -180,7 +180,7 @@ exports.getProductsByProductName = (req, res) => {
       Category.findOne({ slug:product.category.slug })
         .select("_id type slug")
         .exec((error, category) => {
-          if (error) {
+          if (error) { 
             return res.status(400).json({ error });
           }
 
