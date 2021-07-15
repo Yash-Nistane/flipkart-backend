@@ -1,5 +1,5 @@
 const express = require('express');
-const { requireSignin, adminMiddleware, userMiddleware } = require('../common-middleware');
+const { requireSignin, adminMiddleware, userMiddleware, uploadS3 } = require('../common-middleware');
 const { createProduct, getProductsBySlug, getProductDetailsById,  getProducts,deleteProductById, addReview, getSearchByCatSlug, getProductsByProductName,  } = require('../controller/product');
 const router = express.Router();
 const multer = require('multer');
@@ -23,7 +23,7 @@ const upload = multer({storage});
  router.post('/product/search',getSearchByCatSlug);
  router.post('/products/searchProduct',getProductsByProductName);
  
- router.post('/product/create',requireSignin,adminMiddleware,upload.array('productPicture'),createProduct);
+ router.post('/product/create',requireSignin,adminMiddleware,uploadS3.array('productPicture'),createProduct);
  router.get('/products/:slug',getProductsBySlug);
 //  router.get('/category/getCategory',getCategories);
  router.get('/product/:productId', getProductDetailsById);
