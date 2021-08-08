@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const path = require('path');
 const cors = require('cors');
 
-
+app.use(cors());
 //routes
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin/auth'); //admin routes
@@ -38,7 +38,7 @@ mongoose
   });
 
 
-  app.use(cors());
+  
   app.use(express.json());
   app.use('/public',express.static(path.join((__dirname),'uploads')));
 
